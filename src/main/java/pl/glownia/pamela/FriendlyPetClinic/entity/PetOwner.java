@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.List;
 
 @Entity
-public class Client {
+public class PetOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -19,10 +19,10 @@ public class Client {
     private int age;
     private List<Pet> pets;
 
-    public Client() {
+    public PetOwner() {
     }
 
-    public Client(String firstName, String lastName, String email, String phoneNumber, String address, int age, List<Pet> pets) {
+    public PetOwner(String firstName, String lastName, String email, String phoneNumber, String address, int age, List<Pet> pets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
