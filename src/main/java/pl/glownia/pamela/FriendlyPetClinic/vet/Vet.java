@@ -1,11 +1,12 @@
-package pl.glownia.pamela.FriendlyPetClinic.entity;
+package pl.glownia.pamela.FriendlyPetClinic.vet;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
 
-@Entity
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(name = "Vet")
 public class Vet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,17 +15,20 @@ public class Vet {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String specialization;
+    private String kindOfVisit;
+    @OneToMany(mappedBy = "vet")
+    private List<Pet> pets;
 
     public Vet() {
     }
 
-    public Vet(String firstName, String lastName, String email, String phoneNumber, String specialization) {
+    public Vet(String firstName, String lastName, String email, String phoneNumber, String kindOfVisit, List<Pet> pets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.specialization = specialization;
+        this.kindOfVisit = kindOfVisit;
+        this.pets = pets;
     }
 
     public long getId() {
@@ -47,7 +51,11 @@ public class Vet {
         return phoneNumber;
     }
 
-    public String getSpecialization() {
-        return specialization;
+    public String getKindOfVisit() {
+        return kindOfVisit;
+    }
+
+    public List<Pet> getPets() {
+        return new ArrayList<>(pets);
     }
 }

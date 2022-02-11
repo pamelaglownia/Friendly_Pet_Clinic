@@ -1,14 +1,12 @@
-package pl.glownia.pamela.FriendlyPetClinic.entity;
+package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
 import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "Pet_Owner")
 public class PetOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +17,7 @@ public class PetOwner {
     private String phoneNumber;
     private String address;
     private int age;
+    @OneToMany(mappedBy = "owner")
     private List<Pet> pets;
 
     public PetOwner() {
@@ -63,6 +62,6 @@ public class PetOwner {
     }
 
     public List<Pet> getPets() {
-        return pets;
+        return new ArrayList<>(pets);
     }
 }
