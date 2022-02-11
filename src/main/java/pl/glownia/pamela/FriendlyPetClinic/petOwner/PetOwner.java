@@ -1,5 +1,7 @@
 package pl.glownia.pamela.FriendlyPetClinic.entity;
 
+import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
