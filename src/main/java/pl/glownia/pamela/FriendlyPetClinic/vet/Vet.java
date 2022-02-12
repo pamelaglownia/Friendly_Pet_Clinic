@@ -6,16 +6,27 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Vet")
+@Entity(name = "vets")
 public class Vet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String firstName;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String lastName;
+
+    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     private String email;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String phoneNumber;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String kindOfVisit;
+
     @OneToMany(mappedBy = "vet")
     private List<Pet> pets;
 

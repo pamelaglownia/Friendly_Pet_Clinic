@@ -6,30 +6,40 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Pet_Owner")
+@Entity(name = "pet_owners")
 public class PetOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String firstName;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String lastName;
+
+    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     private String email;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String phoneNumber;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String address;
-    private int age;
+
+    @Column(nullable = false)
     @OneToMany(mappedBy = "owner")
     private List<Pet> pets;
 
-    public PetOwner() {
+        public PetOwner() {
     }
 
-    public PetOwner(String firstName, String lastName, String email, String phoneNumber, String address, int age, List<Pet> pets) {
+    public PetOwner(String firstName, String lastName, String email, String phoneNumber, String address, List<Pet> pets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.age = age;
         this.pets = pets;
     }
 
@@ -55,10 +65,6 @@ public class PetOwner {
 
     public String getAddress() {
         return address;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public List<Pet> getPets() {

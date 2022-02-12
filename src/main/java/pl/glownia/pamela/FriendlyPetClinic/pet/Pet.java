@@ -5,19 +5,27 @@ import pl.glownia.pamela.FriendlyPetClinic.vet.Vet;
 
 import javax.persistence.*;
 
-@Entity(name = "Pet")
+@Entity(name = "pets")
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String name;
+
+    @Column(nullable = false)
     private int age;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String type;
+
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private PetOwner owner;
+
     @ManyToOne
-    @JoinColumn(name = "vet_id")
+    @JoinColumn(name = "vet_id", nullable = false)
     private Vet vet;
 
     public Pet() {
