@@ -1,7 +1,6 @@
-package pl.glownia.pamela.FriendlyPetClinic.repository;
+package pl.glownia.pamela.FriendlyPetClinic.vet;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.glownia.pamela.FriendlyPetClinic.entity.Vet;
 
 public interface VetRepository extends CrudRepository<Vet, Long> {
 }
