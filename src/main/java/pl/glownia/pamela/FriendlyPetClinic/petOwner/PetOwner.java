@@ -1,6 +1,8 @@
 package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
-import org.apache.tomcat.jni.Address;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
 
 import javax.persistence.*;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "pet_owners")
+@Getter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class PetOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,42 +43,6 @@ public class PetOwner {
     @Column(nullable = false)
     @OneToMany(mappedBy = "owner")
     private List<Pet> pets;
-
-    public PetOwner() {
-    }
-
-    public PetOwner(String firstName, String lastName, String email, String phoneNumber, String address, List<Pet> pets) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.pets = pets;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 
     public List<Pet> getPets() {
         return new ArrayList<>(pets);
