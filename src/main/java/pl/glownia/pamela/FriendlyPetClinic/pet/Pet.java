@@ -4,6 +4,8 @@ import pl.glownia.pamela.FriendlyPetClinic.petOwner.PetOwner;
 import pl.glownia.pamela.FriendlyPetClinic.vet.Vet;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity(name = "pets")
 public class Pet {
@@ -12,12 +14,15 @@ public class Pet {
     private long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "First name is required.")
     private String name;
 
     @Column(nullable = false)
+    @PositiveOrZero(message = "Age cannot be lower than zero.")
     private int age;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Type should be determined.")
     private String type;
 
     @ManyToOne

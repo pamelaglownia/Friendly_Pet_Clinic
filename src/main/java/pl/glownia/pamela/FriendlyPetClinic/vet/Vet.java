@@ -3,6 +3,9 @@ package pl.glownia.pamela.FriendlyPetClinic.vet;
 import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +16,25 @@ public class Vet {
     private long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "First name is required.")
+    @Size(min = 3)
     private String firstName;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Last name is required.")
+    @Size(min = 3)
     private String lastName;
 
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
+    @Pattern(regexp = ".+@.+\\..+", message = "Invalid email.")
     private String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @Size(min =7)
     private String phoneNumber;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Kind of visit should be determined.")
     private String kindOfVisit;
 
     @OneToMany(mappedBy = "vet")
