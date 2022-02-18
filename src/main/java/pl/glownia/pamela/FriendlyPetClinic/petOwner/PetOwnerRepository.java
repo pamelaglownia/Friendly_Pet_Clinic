@@ -1,6 +1,8 @@
 package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PetOwnerRepository extends CrudRepository<PetOwner, Long> {
+@Repository
+public interface PetOwnerRepository extends JpaRepository<PetOwner, Long> {
 }
