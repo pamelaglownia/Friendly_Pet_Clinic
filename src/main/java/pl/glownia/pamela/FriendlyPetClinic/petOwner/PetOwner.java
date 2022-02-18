@@ -14,7 +14,6 @@ import java.util.List;
 
 @Entity(name = "pet_owners")
 @Getter
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class PetOwner {
     @Id

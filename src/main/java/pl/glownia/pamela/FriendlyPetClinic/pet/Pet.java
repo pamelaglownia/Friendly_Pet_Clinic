@@ -12,15 +12,13 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Entity(name = "pets")
 @Getter
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    @NotBlank(message = "First name is required.")
+    @Column(nullable = false, columnDefinition = "TEXT DEFAULT 'unnamed'")
     private String name;
 
     @Column(nullable = false)
