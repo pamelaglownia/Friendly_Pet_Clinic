@@ -1,51 +1,40 @@
 package pl.glownia.pamela.FriendlyPetClinic.vet;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
+import pl.glownia.pamela.FriendlyPetClinic.model.Person;
+import pl.glownia.pamela.FriendlyPetClinic.visit.Visit;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "vets")
 @Getter
-@RequiredArgsConstructor
-public class Vet {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Vet extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    @NotBlank(message = "First name is required.")
-    @Size(min = 3)
-    private String firstName;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    @NotBlank(message = "Last name is required.")
-    @Size(min = 3)
-    private String lastName;
-
-    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
-    @Pattern(regexp = ".+@.+\\..+", message = "Invalid email.")
-    private String email;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    @Size(min = 7)
-    private String phoneNumber;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    @NotBlank(message = "Kind of visit should be determined.")
-    private String kindOfVisit;
+    @NotBlank(message = "At least one specialty should be determined.")
+    @ElementCollection(targetClass = String.class)
+    private Set<String> specialties;
 
     @OneToMany(mappedBy = "vet")
-    private List<Pet> pets;
+    private Set<Visit> visits;
 
-    public List<Pet> getPets() {
-        return new ArrayList<>(pets);
+    public Set<String> getSpecialties() {
+        return new HashSet<>(specialties);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visits);
     }
 }

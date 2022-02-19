@@ -1,18 +1,24 @@
 package pl.glownia.pamela.FriendlyPetClinic.pet;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.glownia.pamela.FriendlyPetClinic.petOwner.PetOwner;
-import pl.glownia.pamela.FriendlyPetClinic.vet.Vet;
+import pl.glownia.pamela.FriendlyPetClinic.visit.Visit;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "pets")
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,8 +28,8 @@ public class Pet {
     private String name;
 
     @Column(nullable = false)
-    @PositiveOrZero(message = "Age cannot be lower than zero.")
-    private int age;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private Date dateOfBirth;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "Type should be determined.")
@@ -33,7 +39,10 @@ public class Pet {
     @JoinColumn(name = "owner_id", nullable = false)
     private PetOwner owner;
 
-    @ManyToOne
-    @JoinColumn(name = "vet_id", nullable = false)
-    private Vet vet;
+    @OneToMany(mappedBy = "pet")
+    private Set<Visit> visits;
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visits);
+    }
 }
