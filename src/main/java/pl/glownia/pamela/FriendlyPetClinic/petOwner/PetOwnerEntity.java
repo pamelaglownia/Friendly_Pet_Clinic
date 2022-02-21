@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
-import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
+import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PetOwner extends Person {
+public class PetOwnerEntity extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -26,9 +26,9 @@ public class PetOwner extends Person {
 
     @Column(nullable = false)
     @OneToMany(mappedBy = "owner")
-    private List<Pet> pets;
+    private List<PetEntity> pets;
 
-    public List<Pet> getPets() {
+    public List<PetEntity> getPets() {
         return new ArrayList<>(pets);
     }
 }

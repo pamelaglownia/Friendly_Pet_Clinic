@@ -5,19 +5,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.glownia.pamela.FriendlyPetClinic.pet.Pet;
-import pl.glownia.pamela.FriendlyPetClinic.vet.Vet;
+import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
+import pl.glownia.pamela.FriendlyPetClinic.vet.VetEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "visits")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Visit {
+public class VisitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -32,9 +32,9 @@ public class Visit {
 
     @ManyToOne
     @JoinColumn(name = "pet_id", nullable = false)
-    private Pet pet;
+    private PetEntity pet;
 
     @ManyToOne
     @JoinColumn(name = "vet_id", nullable = false)
-    private Vet vet;
+    private VetEntity vet;
 }

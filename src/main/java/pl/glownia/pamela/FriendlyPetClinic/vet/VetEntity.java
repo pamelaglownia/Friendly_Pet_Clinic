@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
-import pl.glownia.pamela.FriendlyPetClinic.visit.Visit;
+import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Vet extends Person {
+public class VetEntity extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -28,13 +28,13 @@ public class Vet extends Person {
     private Set<String> specialties;
 
     @OneToMany(mappedBy = "vet")
-    private Set<Visit> visits;
+    private Set<VisitEntity> visits;
 
     public Set<String> getSpecialties() {
         return new HashSet<>(specialties);
     }
 
-    public Set<Visit> getVisits() {
+    public Set<VisitEntity> getVisits() {
         return new HashSet<>(visits);
     }
 }

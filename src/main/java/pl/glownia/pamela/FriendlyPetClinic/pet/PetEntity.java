@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.glownia.pamela.FriendlyPetClinic.petOwner.PetOwner;
-import pl.glownia.pamela.FriendlyPetClinic.visit.Visit;
+import pl.glownia.pamela.FriendlyPetClinic.petOwner.PetOwnerEntity;
+import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pet {
+public class PetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -37,12 +37,12 @@ public class Pet {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    private PetOwner owner;
+    private PetOwnerEntity owner;
 
     @OneToMany(mappedBy = "pet")
-    private Set<Visit> visits;
+    private Set<VisitEntity> visits;
 
-    public Set<Visit> getVisits() {
+    public Set<VisitEntity> getVisits() {
         return new HashSet<>(visits);
     }
 }
