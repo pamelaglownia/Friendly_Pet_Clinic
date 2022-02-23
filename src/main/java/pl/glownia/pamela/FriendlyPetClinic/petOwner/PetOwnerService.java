@@ -15,6 +15,11 @@ public class PetOwnerService {
         this.petOwnerRepository = petOwnerRepository;
     }
 
+    public void createPetOwner(PetOwnerDto petOwnerDto) {
+        PetOwnerEntity petOwnerEntity = convertToEntity(petOwnerDto);
+        petOwnerRepository.save(petOwnerEntity);
+    }
+
     public List<PetOwnerDto> getAllPetOwners() {
         List<PetOwnerEntity> owners = petOwnerRepository.findAll();
         return owners.stream().map(this::convertToDto).collect(Collectors.toList());
