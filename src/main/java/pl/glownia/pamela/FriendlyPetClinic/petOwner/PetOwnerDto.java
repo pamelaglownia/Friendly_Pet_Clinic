@@ -2,9 +2,6 @@ package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -20,6 +17,4 @@ public class PetOwnerDto {
     private final String phoneNumber;
 
     private final String address;
-
-    private final List<PetEntity> pets;
 }
