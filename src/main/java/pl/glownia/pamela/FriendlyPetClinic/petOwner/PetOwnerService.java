@@ -15,14 +15,20 @@ public class PetOwnerService {
         this.petOwnerRepository = petOwnerRepository;
     }
 
-
     public List<PetOwnerDto> getAllPetOwners() {
         List<PetOwnerEntity> owners = petOwnerRepository.findAll();
-        return owners.stream().map(this::getPetOwner).collect(Collectors.toList());
+        return owners.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    private PetOwnerDto getPetOwner(PetOwnerEntity petOwnerEntity) {
+    //convert to DTO
+    private PetOwnerDto convertToDto(PetOwnerEntity petOwnerEntity) {
         return new PetOwnerDto(petOwnerEntity.getId(), petOwnerEntity.getFirstName(), petOwnerEntity.getLastName(),
-                petOwnerEntity.getEmail(), petOwnerEntity.getPhoneNumber(), petOwnerEntity.getAddress(), petOwnerEntity.getPets());
+                petOwnerEntity.getEmail(), petOwnerEntity.getPhoneNumber(), petOwnerEntity.getAddress());
+    }
+
+    //convert to entity
+    private PetOwnerEntity convertToEntity(PetOwnerDto petOwnerDto) {
+        return new PetOwnerEntity(petOwnerDto.getFirstName(), petOwnerDto.getLastName(),
+                petOwnerDto.getEmail(), petOwnerDto.getPhoneNumber(), petOwnerDto.getAddress());
     }
 }
