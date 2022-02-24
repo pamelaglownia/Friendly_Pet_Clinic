@@ -2,12 +2,14 @@ package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
 
 import javax.persistence.*;
 
 @Entity(name = "pet_owners")
 @Getter
+@Setter
 @NoArgsConstructor
 public class PetOwnerEntity extends Person {
     @Id
