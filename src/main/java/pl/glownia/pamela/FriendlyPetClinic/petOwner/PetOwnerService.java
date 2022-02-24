@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +19,11 @@ public class PetOwnerService {
     public void createPetOwner(PetOwnerDto petOwnerDto) {
         PetOwnerEntity petOwnerEntity = convertToEntity(petOwnerDto);
         petOwnerRepository.save(petOwnerEntity);
+    }
+
+    public Optional<PetOwnerDto> getPetOwnerById(long id) {
+        PetOwnerEntity petOwnerEntity = petOwnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet owner with id " + id + " doesn't exist."));
+        return Optional.of(convertToDto(petOwnerEntity));
     }
 
     public List<PetOwnerDto> getAllPetOwners() {
