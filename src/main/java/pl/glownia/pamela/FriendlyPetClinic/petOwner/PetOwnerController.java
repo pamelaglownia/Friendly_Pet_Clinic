@@ -28,8 +28,13 @@ public class PetOwnerController {
         return petOwnerService.getAllPetOwners();
     }
 
-    @GetMapping("/{id}")
-    Optional<PetOwnerDto> getPetOwnerById(@PathVariable long id) {
-        return petOwnerService.getPetOwnerById(id);
+    @GetMapping("/{petOwnerId}")
+    Optional<PetOwnerDto> getPetOwnerById(@PathVariable long petOwnerId) {
+        return petOwnerService.getPetOwnerById(petOwnerId);
+    }
+
+    @PutMapping("/{petOwnerId}")
+    void updatePetOwnerData(@RequestBody PetOwnerDto petOwnerDto, @PathVariable long petOwnerId) {
+        petOwnerService.updatePetOwnerData(petOwnerDto);
     }
 }
