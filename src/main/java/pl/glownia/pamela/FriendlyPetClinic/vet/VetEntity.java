@@ -1,7 +1,6 @@
 package pl.glownia.pamela.FriendlyPetClinic.vet;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
@@ -15,8 +14,6 @@ import java.util.Set;
 @Entity(name = "vets")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class VetEntity extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +24,15 @@ public class VetEntity extends Person {
     @ElementCollection(targetClass = String.class)
     private Set<String> specialties;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "vet")
     private Set<VisitEntity> visits;
+
+    public VetEntity(String firstName, String lastName, String email, String phoneNumber, Set<String> specialties, Set<VisitEntity> visits) {
+        super(firstName, lastName, email, phoneNumber);
+        this.specialties = specialties;
+        this.visits = visits;
+    }
 
     public Set<String> getSpecialties() {
         return new HashSet<>(specialties);

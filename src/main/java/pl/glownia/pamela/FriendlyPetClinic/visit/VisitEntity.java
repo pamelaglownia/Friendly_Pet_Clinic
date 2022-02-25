@@ -30,11 +30,11 @@ public class VisitEntity {
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime dateOfVisit;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pet_id", referencedColumnName = "id", nullable = false)
     private PetEntity pet;
 
-    @ManyToOne
-    @JoinColumn(name = "vet_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vet_id", referencedColumnName = "id", nullable = false)
     private VetEntity vet;
 }

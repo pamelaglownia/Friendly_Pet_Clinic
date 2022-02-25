@@ -1,5 +1,6 @@
 package pl.glownia.pamela.FriendlyPetClinic.pet;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,10 +36,11 @@ public class PetEntity {
     @NotBlank(message = "Type should be determined.")
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
     private PetOwnerEntity owner;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pet")
     private Set<VisitEntity> visits;
 
