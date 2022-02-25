@@ -34,13 +34,24 @@ public class PetOwnerService {
 
     @Transactional
     public void updatePetOwnerData(PetOwnerDto petOwnerDto) {
-        PetOwnerEntity petOwnerEntity = petOwnerRepository.findById(petOwnerDto.getPetOwnerId()).orElseThrow(() -> new RuntimeException("Pet owner with id " + petOwnerDto.getPetOwnerId() + " doesn't exist."));
+        PetOwnerEntity petOwnerEntity = findPetOwnerById(petOwnerDto.getPetOwnerId());
         petOwnerEntity.setFirstName(petOwnerDto.getFirstName());
         petOwnerEntity.setLastName(petOwnerDto.getLastName());
         petOwnerEntity.setEmail(petOwnerDto.getEmail());
         petOwnerEntity.setPhoneNumber(petOwnerDto.getPhoneNumber());
         petOwnerEntity.setAddress(petOwnerDto.getAddress());
-        petOwnerRepository.save(petOwnerEntity);
+        petOwnerRepository.save(petOwnerEntity); // when we use transactional annotation, it is not necessary to use save() method
+    }
+
+    public void deletePetOwner(long id) {
+        Optional<PetOwnerEntity> petOwnerEntity = Optional.ofNullable(findPetOwnerById(id));
+        if (petOwnerEntity.isPresent()) {
+            petOwnerRepository.deleteById(id);
+        }
+    }
+
+    private PetOwnerEntity findPetOwnerById(long id) {
+        return petOwnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet owner with id " + id + " doesn't exist."));
     }
 
     //convert to DTO

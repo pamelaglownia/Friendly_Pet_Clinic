@@ -37,4 +37,9 @@ public class PetOwnerController {
     void updatePetOwnerData(@RequestBody PetOwnerDto petOwnerDto, @PathVariable long petOwnerId) {
         petOwnerService.updatePetOwnerData(petOwnerDto);
     }
+
+    @DeleteMapping("/{petOwnerId}")
+    void deletePetOwner(@PathVariable long petOwnerId) {
+        petOwnerService.deletePetOwner(petOwnerId);
+    }
 }
