@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class PetOwnerEntity extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +28,14 @@ public class PetOwnerEntity extends Person {
     @OneToMany(mappedBy = "owner")
     private List<PetEntity> pets = new ArrayList<>();
 
-    public PetOwnerEntity(String firstName, String lastName, String email, String phoneNumber, String address) {
+    public PetOwnerEntity(String firstName, String lastName, String email, String phoneNumber, String address, List<PetEntity> pets) {
         super(firstName, lastName, email, phoneNumber);
         this.address = address;
+        this.pets = pets;
+    }
+
+    public void addPet(PetEntity petEntity) {
+        pets.add(petEntity);
+        petEntity.setOwner(this);
     }
 }

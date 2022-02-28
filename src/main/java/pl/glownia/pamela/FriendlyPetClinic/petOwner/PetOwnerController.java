@@ -3,6 +3,7 @@ package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,13 @@ public class PetOwnerController {
     @ResponseStatus(HttpStatus.OK)
     void createPetOwner(@RequestBody PetOwnerDto petOwnerDto) {
         petOwnerService.createPetOwner(petOwnerDto);
+    }
+
+
+    @PatchMapping("/{petOwnerId}")
+    @ResponseStatus(HttpStatus.OK)
+    void addPet(@PathVariable long petOwnerId, @RequestBody PetEntity petEntity) {
+        petOwnerService.addPet(petOwnerId, petEntity);
     }
 
     @GetMapping
