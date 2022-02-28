@@ -1,10 +1,9 @@
 package pl.glownia.pamela.FriendlyPetClinic.pet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.glownia.pamela.FriendlyPetClinic.petOwner.PetOwnerEntity;
 import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
@@ -17,9 +16,8 @@ import java.util.Set;
 
 @Entity(name = "pets")
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class PetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,20 +27,26 @@ public class PetEntity {
     private String name;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "Type should be determined.")
     private String type;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "owner_id")
     private PetOwnerEntity owner;
 
     @JsonIgnore
     @OneToMany(mappedBy = "pet")
     private Set<VisitEntity> visits;
+
+    public PetEntity(String name, Date dateOfBirth, String type) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.type = type;
+    }
 
     public Set<VisitEntity> getVisits() {
         return new HashSet<>(visits);

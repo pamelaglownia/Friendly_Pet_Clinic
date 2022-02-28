@@ -16,6 +16,11 @@ public class PetService {
         this.petRepository = petRepository;
     }
 
+    public void addPet(PetDto petDto) {
+        PetEntity petEntity = convertToEntity(petDto);
+        petRepository.save(petEntity);
+    }
+
     public List<PetDto> getAllPets() {
         List<PetEntity> pets = petRepository.findAll();
         return pets.stream().map(this::convertToDto).collect(Collectors.toList());
@@ -28,11 +33,11 @@ public class PetService {
 
     //convert to DTO
     private PetDto convertToDto(PetEntity petEntity) {
-        return new PetDto(petEntity.getId(), petEntity.getName(), petEntity.getDateOfBirth(), petEntity.getType(), petEntity.getOwner());
+        return new PetDto(petEntity.getId(), petEntity.getName(), petEntity.getDateOfBirth(), petEntity.getType(), petEntity.getOwner(), petEntity.getVisits());
     }
 
     //convert to entity
     private PetEntity convertToEntity(PetDto petDto) {
-        return new PetEntity(petDto.getName(), petDto.getDateOfBirth(), petDto.getType(), petDto.getOwner());
+        return new PetEntity(petDto.getName(), petDto.getDateOfBirth(), petDto.getType());
     }
 }

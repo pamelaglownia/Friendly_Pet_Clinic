@@ -1,10 +1,8 @@
 package pl.glownia.pamela.FriendlyPetClinic.pet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +16,12 @@ public class PetController {
     @Autowired
     public PetController(PetService petService) {
         this.petService = petService;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    void addPet(@RequestBody PetDto petDto) {
+        petService.addPet(petDto);
     }
 
     @GetMapping
