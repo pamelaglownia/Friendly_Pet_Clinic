@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/vets")
 public class VetController {
@@ -19,5 +22,15 @@ public class VetController {
     @ResponseStatus(HttpStatus.OK)
     void createVet(@RequestBody VetDto vetDto) {
         vetService.createVet(vetDto);
+    }
+
+    @GetMapping
+    List<VetDto> getAllVets() {
+        return vetService.getAllVets();
+    }
+
+    @GetMapping("/{vetId}")
+    Optional<VetDto> getVetById(@PathVariable long vetId) {
+        return vetService.getVetById(vetId);
     }
 }
