@@ -3,6 +3,7 @@ package pl.glownia.pamela.FriendlyPetClinic.vet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
 import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity(name = "vets")
 @Getter
+@Setter
 @NoArgsConstructor
 public class VetEntity extends Person {
     @Id

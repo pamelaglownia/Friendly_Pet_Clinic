@@ -33,4 +33,9 @@ public class VetController {
     Optional<VetDto> getVetById(@PathVariable long vetId) {
         return vetService.getVetById(vetId);
     }
+
+    @PutMapping("/{vetId}")
+    void updateVetData(@PathVariable long vetId, @RequestBody VetDto vetDto) {
+        vetService.updateVetData(vetId, vetDto);
+    }
 }

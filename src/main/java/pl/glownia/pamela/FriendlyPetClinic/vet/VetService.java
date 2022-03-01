@@ -27,8 +27,23 @@ public class VetService {
     }
 
     Optional<VetDto> getVetById(long id) {
-        VetEntity vetEntity = vetRepository.findById(id).orElseThrow(() -> new RuntimeException("Vet with id " + id + " doesn't exist."));
+        VetEntity vetEntity = findVetById(id);
         return Optional.of(convertToDto(vetEntity));
+    }
+
+    void updateVetData(long vetId, VetDto vetDto) {
+        VetEntity vetEntity = findVetById(vetId);
+        vetEntity.setFirstName(vetDto.getFirstName());
+        vetEntity.setLastName(vetDto.getLastName());
+        vetEntity.setEmail(vetDto.getEmail());
+        vetEntity.setPhoneNumber(vetDto.getPhoneNumber());
+        vetEntity.setSpecialties(vetDto.getSpecialties());
+        vetEntity.setVisits(vetDto.getVisits());
+        vetRepository.save(vetEntity);
+    }
+
+    private VetEntity findVetById(long id) {
+        return vetRepository.findById(id).orElseThrow(() -> new RuntimeException("Vet with id " + id + " doesn't exist."));
     }
 
     //convert to DTO
