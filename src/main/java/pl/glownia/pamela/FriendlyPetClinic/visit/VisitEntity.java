@@ -1,9 +1,9 @@
 package pl.glownia.pamela.FriendlyPetClinic.visit;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
 import pl.glownia.pamela.FriendlyPetClinic.vet.VetEntity;
@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 
 @Entity(name = "visits")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class VisitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     @NotBlank(message = "Type should be determined.")
     private VisitType visitType;
 
@@ -31,10 +31,15 @@ public class VisitEntity {
     private LocalDateTime dateOfVisit;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pet_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pet_id")
     private PetEntity pet;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vet_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "vet_id")
     private VetEntity vet;
+
+    public VisitEntity(VisitType visitType, LocalDateTime dateOfVisit) {
+        this.visitType = visitType;
+        this.dateOfVisit = dateOfVisit;
+    }
 }
