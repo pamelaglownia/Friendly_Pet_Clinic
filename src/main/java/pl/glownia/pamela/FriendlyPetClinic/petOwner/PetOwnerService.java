@@ -32,9 +32,8 @@ public class PetOwnerService {
         petRepository.save(petEntity);
     }
 
-
     public Optional<PetOwnerDto> getPetOwnerById(long id) {
-        PetOwnerEntity petOwnerEntity = petOwnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet owner with id " + id + " doesn't exist."));
+        PetOwnerEntity petOwnerEntity = findPetOwnerById(id);
         return Optional.of(convertToDto(petOwnerEntity));
     }
 
@@ -44,8 +43,8 @@ public class PetOwnerService {
     }
 
     @Transactional
-    public void updatePetOwnerData(PetOwnerDto petOwnerDto) {
-        PetOwnerEntity petOwnerEntity = findPetOwnerById(petOwnerDto.getPetOwnerId());
+    public void updatePetOwnerData(long petOwnerId, PetOwnerDto petOwnerDto) {
+        PetOwnerEntity petOwnerEntity = findPetOwnerById(petOwnerId);
         petOwnerEntity.setFirstName(petOwnerDto.getFirstName());
         petOwnerEntity.setLastName(petOwnerDto.getLastName());
         petOwnerEntity.setEmail(petOwnerDto.getEmail());

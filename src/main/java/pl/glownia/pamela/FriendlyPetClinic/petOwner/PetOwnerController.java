@@ -24,7 +24,6 @@ public class PetOwnerController {
         petOwnerService.createPetOwner(petOwnerDto);
     }
 
-
     @PatchMapping("/{petOwnerId}")
     @ResponseStatus(HttpStatus.OK)
     void addPet(@PathVariable long petOwnerId, @RequestBody PetEntity petEntity) {
@@ -43,7 +42,7 @@ public class PetOwnerController {
 
     @PutMapping("/{petOwnerId}")
     void updatePetOwnerData(@RequestBody PetOwnerDto petOwnerDto, @PathVariable long petOwnerId) {
-        petOwnerService.updatePetOwnerData(petOwnerDto);
+        petOwnerService.updatePetOwnerData(petOwnerId, petOwnerDto);
     }
 
     @DeleteMapping("/{petOwnerId}")

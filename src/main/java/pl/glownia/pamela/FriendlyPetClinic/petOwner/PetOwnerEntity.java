@@ -35,7 +35,11 @@ public class PetOwnerEntity extends Person {
     }
 
     public void addPet(PetEntity petEntity) {
-        pets.add(petEntity);
         petEntity.setOwner(this);
+        pets.add(petEntity);
+    }
+
+    public List<PetEntity> getPets() {
+        return new ArrayList<>(pets);
     }
 }
