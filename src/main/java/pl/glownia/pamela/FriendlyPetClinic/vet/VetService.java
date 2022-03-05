@@ -2,6 +2,10 @@ package pl.glownia.pamela.FriendlyPetClinic.vet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
+import pl.glownia.pamela.FriendlyPetClinic.pet.PetRepository;
+import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
+import pl.glownia.pamela.FriendlyPetClinic.visit.VisitRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,15 +14,29 @@ import java.util.stream.Collectors;
 @Service
 public class VetService {
     private final VetRepository vetRepository;
+    private final PetRepository petRepository;
+    private final VisitRepository visitRepository;
 
     @Autowired
-    public VetService(VetRepository vetRepository) {
+    public VetService(VetRepository vetRepository, PetRepository petRepository, VisitRepository visitRepository) {
         this.vetRepository = vetRepository;
+        this.petRepository = petRepository;
+        this.visitRepository = visitRepository;
     }
 
     public void createVet(VetDto vetDto) {
         VetEntity vetEntity = convertToEntity(vetDto);
         vetRepository.save(vetEntity);
+    }
+
+    public void addVisit(VisitEntity visitEntity, long vetId, long petId) {
+        PetEntity petEntity = petRepository.findById(petId).orElseThrow(() -> new RuntimeException("Visit with id " + " doesn't exist.'"));
+        visitEntity.setPet(petEntity);
+        VetEntity vetEntity = findVetById(vetId);
+        visitEntity.setVet(vetEntity);
+        vetRepository.save(vetEntity);
+        petRepository.save(petEntity);
+        visitRepository.save(visitEntity);
     }
 
     List<VetDto> getAllVets() {

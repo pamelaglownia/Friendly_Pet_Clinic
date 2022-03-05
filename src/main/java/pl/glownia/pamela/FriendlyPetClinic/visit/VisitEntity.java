@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
 import pl.glownia.pamela.FriendlyPetClinic.vet.VetEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity(name = "visits")
@@ -23,11 +21,9 @@ public class VisitEntity {
     private long id;
 
     @Column(nullable = false)
-    @NotBlank(message = "Type should be determined.")
     private VisitType visitType;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime dateOfVisit;
 
     @ManyToOne(cascade = CascadeType.ALL)
