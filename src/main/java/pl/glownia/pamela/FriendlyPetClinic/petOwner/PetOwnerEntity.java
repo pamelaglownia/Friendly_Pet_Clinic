@@ -1,6 +1,5 @@
 package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,6 @@ public class PetOwnerEntity extends Person {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String address;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<PetEntity> pets = new ArrayList<>();
 
@@ -32,6 +30,10 @@ public class PetOwnerEntity extends Person {
         super(firstName, lastName, email, phoneNumber);
         this.address = address;
         this.pets = pets;
+    }
+
+    public PetOwnerEntity(String firstName, String lastName) {
+        super(firstName, lastName);
     }
 
     public void addPet(PetEntity petEntity) {

@@ -1,5 +1,6 @@
 package pl.glownia.pamela.FriendlyPetClinic.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,18 +21,27 @@ public class Person {
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "First name is required.")
     @Size(min = 3)
+    @JsonView(EntityVisibility.Public.class)
     protected String firstName;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "Last name is required.")
     @Size(min = 3)
+    @JsonView(EntityVisibility.Public.class)
     protected String lastName;
 
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     @Pattern(regexp = ".+@.+\\..+", message = "Invalid email.")
+    @JsonView(EntityVisibility.Internal.class)
     protected String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 7)
+    @JsonView(EntityVisibility.Internal.class)
     protected String phoneNumber;
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
