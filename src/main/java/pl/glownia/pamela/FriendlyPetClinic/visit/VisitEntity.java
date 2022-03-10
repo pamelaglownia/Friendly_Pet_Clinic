@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class VisitEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "visit_generator")
+    @SequenceGenerator(name = "visit_generator", sequenceName = "visit_sequence")
     private long id;
 
     @Column(nullable = false)

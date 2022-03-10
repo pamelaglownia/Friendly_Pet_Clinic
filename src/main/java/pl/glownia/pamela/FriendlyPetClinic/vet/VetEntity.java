@@ -17,7 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class VetEntity extends Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vet_generator")
+    @SequenceGenerator(name = "vet_generator", sequenceName = "vet_sequence")
     private long id;
 
     @Column(nullable = false)

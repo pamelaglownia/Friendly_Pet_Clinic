@@ -17,7 +17,8 @@ import java.util.List;
 
 public class PetOwnerEntity extends Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_owner_generator")
+    @SequenceGenerator(name = "pet_owner_generator", sequenceName = "pet_owner_sequence")
     private long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
