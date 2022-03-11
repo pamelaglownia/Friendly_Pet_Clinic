@@ -18,15 +18,15 @@ public class PetDto {
     @JsonView(EntityVisibility.Public.class)
     private final String name;
 
-    @JsonView(EntityVisibility.Public.class)
+    @JsonView(EntityVisibility.InternalPet.class)
     private final Date dateOfBirth;
 
     @JsonView(EntityVisibility.Public.class)
     private final String type;
 
-    @JsonView(EntityVisibility.Public.class)
+    @JsonView(EntityVisibility.InternalPet.class)
     private final PetOwnerEntity owner;
 
-    @JsonView(EntityVisibility.Public.class)
+    @JsonView(EntityVisibility.InternalPet.class)
     private final Set<VisitEntity> visits;
 }

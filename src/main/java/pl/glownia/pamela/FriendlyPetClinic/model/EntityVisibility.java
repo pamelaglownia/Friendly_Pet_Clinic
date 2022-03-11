@@ -1,9 +1,12 @@
 package pl.glownia.pamela.FriendlyPetClinic.model;
 
 public interface EntityVisibility {
-    class Internal {
+    class Public {
     }
 
-    class Public {
+    class InternalOwner extends Public {
+    }
+
+    class InternalPet extends Public {
     }
 }

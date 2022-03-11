@@ -13,21 +13,23 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class PetOwnerDto {
+
+    @JsonView(EntityVisibility.InternalOwner.class)
     private final long petOwnerId;
 
     private final String firstName;
 
     private final String lastName;
 
-    @JsonView(EntityVisibility.Internal.class)
+    @JsonView(EntityVisibility.InternalOwner.class)
     private final String email;
 
-    @JsonView(EntityVisibility.Internal.class)
+    @JsonView(EntityVisibility.InternalOwner.class)
     private final String phoneNumber;
 
-    @JsonView(EntityVisibility.Internal.class)
+    @JsonView(EntityVisibility.InternalOwner.class)
     private final String address;
 
-    @JsonView(EntityVisibility.Internal.class)
+    @JsonView(EntityVisibility.InternalOwner.class)
     private final List<PetEntity> pets;
 }

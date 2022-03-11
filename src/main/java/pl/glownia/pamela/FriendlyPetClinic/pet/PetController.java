@@ -27,13 +27,15 @@ public class PetController {
     }
 
     @GetMapping
-    @JsonView(EntityVisibility.Public.class)
+    @JsonView(EntityVisibility.InternalPet.class)
+//    @JsonView(EntityVisibility.Public.class)
     List<PetDto> getAllPets() {
         return petService.getAllPets();
     }
 
     @GetMapping("/{petId}")
-    @JsonView(EntityVisibility.Public.class)
+    @JsonView(EntityVisibility.InternalPet.class)
+//    @JsonView(EntityVisibility.Public.class)
     Optional<PetDto> getPetById(@PathVariable long petId) {
         return petService.getPetById(petId);
     }

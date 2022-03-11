@@ -32,12 +32,10 @@ public class Person {
 
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     @Pattern(regexp = ".+@.+\\..+", message = "Invalid email.")
-    @JsonView(EntityVisibility.Internal.class)
     protected String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 7)
-    @JsonView(EntityVisibility.Internal.class)
     protected String phoneNumber;
 
     public Person(String firstName, String lastName) {
