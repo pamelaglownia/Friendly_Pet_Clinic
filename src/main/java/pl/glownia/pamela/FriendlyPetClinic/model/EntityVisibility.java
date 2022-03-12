@@ -9,4 +9,7 @@ public interface EntityVisibility {
 
     class InternalPet extends Public {
     }
+
+    class InternalVet extends Public {
+    }
 }

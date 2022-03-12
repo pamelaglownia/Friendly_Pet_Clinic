@@ -1,8 +1,10 @@
 package pl.glownia.pamela.FriendlyPetClinic.vet;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.glownia.pamela.FriendlyPetClinic.model.EntityVisibility;
 import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
 
 import java.util.List;
@@ -31,6 +33,7 @@ public class VetController {
     }
 
     @GetMapping
+    @JsonView(EntityVisibility.InternalVet.class)
     List<VetDto> getAllVets() {
         return vetService.getAllVets();
     }
