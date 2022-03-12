@@ -29,13 +29,10 @@ public class VetService {
         vetRepository.save(vetEntity);
     }
 
-    public void addVisit(VisitEntity visitEntity, long vetId, long petId) {
-        PetEntity petEntity = petRepository.findById(petId).orElseThrow(() -> new RuntimeException("Visit with id " + " doesn't exist.'"));
-        visitEntity.setPet(petEntity);
+    public void addVisit(long vetId, VisitEntity visitEntity, long petId) {
         VetEntity vetEntity = findVetById(vetId);
-        visitEntity.setVet(vetEntity);
-        vetRepository.save(vetEntity);
-        petRepository.save(petEntity);
+        PetEntity petEntity = petRepository.findById(petId).orElseThrow(() -> new RuntimeException("Visit with id " + " doesn't exist.'"));
+        vetEntity.addVisit(visitEntity, petEntity);
         visitRepository.save(visitEntity);
     }
 

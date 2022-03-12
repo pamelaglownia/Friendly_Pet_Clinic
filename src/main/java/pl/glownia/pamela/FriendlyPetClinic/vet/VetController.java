@@ -27,7 +27,7 @@ public class VetController {
 
     @PostMapping("/{vetId}/visits/{petId}")
     void addVisit(@PathVariable long vetId, @PathVariable long petId, @RequestBody VisitEntity visitEntity) {
-        vetService.addVisit(visitEntity, vetId, petId);
+        vetService.addVisit(vetId, visitEntity, petId);
     }
 
     @GetMapping
