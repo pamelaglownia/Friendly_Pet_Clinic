@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/vets")
+@RequestMapping("clinic/vets")
 public class VetController {
 
     private final VetService vetService;
@@ -33,7 +33,7 @@ public class VetController {
     }
 
     @GetMapping
-    @JsonView(EntityVisibility.InternalVet.class)
+    @JsonView(EntityVisibility.Public.class)
     List<VetDto> getAllVets() {
         return vetService.getAllVets();
     }

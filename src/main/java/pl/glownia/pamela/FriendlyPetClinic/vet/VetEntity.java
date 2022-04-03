@@ -27,7 +27,7 @@ public class VetEntity extends Person {
 
     @Column(nullable = false)
     @ElementCollection()
-    @JsonView(EntityVisibility.InternalVet.class)
+    @JsonView(EntityVisibility.Public.class)
     private Set<String> specialties = new HashSet<>();
 
     @JsonIgnore

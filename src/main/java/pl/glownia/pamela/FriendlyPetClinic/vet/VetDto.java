@@ -26,7 +26,7 @@ public class VetDto {
     @JsonView(EntityVisibility.InternalVet.class)
     private final String phoneNumber;
 
-    @JsonView(EntityVisibility.InternalVet.class)
+    @JsonView(EntityVisibility.Public.class)
     private final Set<String> specialties;
 
     @JsonView(EntityVisibility.InternalVet.class)

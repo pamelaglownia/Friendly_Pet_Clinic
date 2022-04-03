@@ -9,12 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String OPENING_HOURS_URL = "/clinic/opening-hours";
+    private static final String VETS_LIST = "/clinic/vets";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(OPENING_HOURS_URL).permitAll()
+                .antMatchers(OPENING_HOURS_URL, VETS_LIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
