@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 public class ClinicService {
 
     String displayOpeningHours() {
-        return "Friendly Pet Clinic opening hours:\n" +
-                "\t Monday-Saturday: 8:00 - 20:00\n" +
-                "\t Sunday: 8:00 - 15:00";
+        return """
+                Friendly Pet Clinic opening hours:
+                    Monday-Saturday: 8:00 - 20:00
+                    Sunday: 8:00 - 15:00""";
     }
 }
