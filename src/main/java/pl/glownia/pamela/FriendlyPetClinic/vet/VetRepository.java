@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VetRepository extends JpaRepository<VetEntity, Long> {
+    VetEntity findByEmail(String email);
 }
