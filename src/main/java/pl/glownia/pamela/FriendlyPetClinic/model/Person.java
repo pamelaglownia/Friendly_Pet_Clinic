@@ -1,5 +1,6 @@
 package pl.glownia.pamela.FriendlyPetClinic.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,15 @@ public class Person {
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     @Pattern(regexp = ".+@.+\\..+", message = "Invalid email.")
     protected String email;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank
+    @Size(min = 8, message = "Password should have minimum 8 characters.")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected String password;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected String matchingPassword;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 7)

@@ -23,6 +23,9 @@ public class VetDto {
     @JsonView(EntityVisibility.InternalVet.class)
     private final String email;
 
+    private final String password;
+    private final String matchingPassword;
+
     @JsonView(EntityVisibility.InternalVet.class)
     private final String phoneNumber;
 
