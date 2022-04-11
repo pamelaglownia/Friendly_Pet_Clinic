@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
 import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
+import pl.glownia.pamela.FriendlyPetClinic.model.ClinicUserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class PetOwnerEntity extends Person {
     @OneToMany(mappedBy = "owner")
     private List<PetEntity> pets = new ArrayList<>();
 
-    public PetOwnerEntity(String firstName, String lastName, String email, String phoneNumber, String address, List<PetEntity> pets) {
-        super(firstName, lastName, email, phoneNumber);
+    public PetOwnerEntity(String firstName, String lastName, String email, String password, String matchingPassword, String phoneNumber, String address, List<PetEntity> pets, ClinicUserRole role) {
+        super(firstName, lastName, email, password, matchingPassword, phoneNumber, role);
         this.address = address;
         this.pets = pets;
     }

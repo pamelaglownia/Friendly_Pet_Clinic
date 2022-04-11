@@ -8,6 +8,7 @@ import lombok.Setter;
 import pl.glownia.pamela.FriendlyPetClinic.model.EntityVisibility;
 import pl.glownia.pamela.FriendlyPetClinic.model.Person;
 import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
+import pl.glownia.pamela.FriendlyPetClinic.model.ClinicUserRole;
 import pl.glownia.pamela.FriendlyPetClinic.visit.VisitEntity;
 
 import javax.persistence.*;
@@ -35,8 +36,8 @@ public class VetEntity extends Person {
     @JsonView(EntityVisibility.InternalVet.class)
     private Set<VisitEntity> visits = new HashSet<>();
 
-    public VetEntity(String firstName, String lastName, String email, String phoneNumber, Set<String> specialties, Set<VisitEntity> visits) {
-        super(firstName, lastName, email, phoneNumber);
+    public VetEntity(String firstName, String lastName, String email, String password, String matchingPassword, String phoneNumber, Set<String> specialties, Set<VisitEntity> visits, ClinicUserRole role) {
+        super(firstName, lastName, email, password, matchingPassword, phoneNumber, role);
         this.specialties = specialties;
         this.visits = visits;
     }

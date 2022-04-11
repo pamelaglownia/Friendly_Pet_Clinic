@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -47,6 +49,10 @@ public class Person {
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 7)
     protected String phoneNumber;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Enumerated(EnumType.STRING)
+    private ClinicUserRole role;
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
