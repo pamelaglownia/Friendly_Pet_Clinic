@@ -2,16 +2,17 @@ package pl.glownia.pamela.FriendlyPetClinic.petOwner;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.glownia.pamela.FriendlyPetClinic.model.EntityVisibility;
 import pl.glownia.pamela.FriendlyPetClinic.pet.PetEntity;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pet-owners")
+@RequestMapping("clinic/pet-owners")
 public class PetOwnerController {
     private final PetOwnerService petOwnerService;
 
@@ -21,14 +22,13 @@ public class PetOwnerController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    void createPetOwner(@RequestBody PetOwnerDto petOwnerDto) {
+    ResponseEntity<String> createPetOwner(@RequestBody @Valid PetOwnerDto petOwnerDto) {
         petOwnerService.createPetOwner(petOwnerDto);
+        return ResponseEntity.ok("Pet owner data is valid.");
     }
 
     @PatchMapping("/{petOwnerId}")
-    @ResponseStatus(HttpStatus.OK)
-    void addPet(@PathVariable long petOwnerId, @RequestBody PetEntity petEntity) {
+    void addPet(@PathVariable long petOwnerId, @RequestBody @Valid PetEntity petEntity) {
         petOwnerService.addPet(petOwnerId, petEntity);
     }
 
@@ -45,7 +45,7 @@ public class PetOwnerController {
     }
 
     @PutMapping("/{petOwnerId}")
-    void updatePetOwnerData(@RequestBody PetOwnerDto petOwnerDto, @PathVariable long petOwnerId) {
+    void updatePetOwnerData(@RequestBody @Valid PetOwnerDto petOwnerDto, @PathVariable long petOwnerId) {
         petOwnerService.updatePetOwnerData(petOwnerId, petOwnerDto);
     }
 

@@ -2,15 +2,16 @@ package pl.glownia.pamela.FriendlyPetClinic.pet;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.glownia.pamela.FriendlyPetClinic.model.EntityVisibility;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pets")
+@RequestMapping("/clinic/pets")
 public class PetController {
 
     private final PetService petService;
@@ -21,21 +22,19 @@ public class PetController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    void addPet(@RequestBody PetDto petDto) {
+    ResponseEntity<String> addPet(@RequestBody @Valid PetDto petDto) {
         petService.addPet(petDto);
+        return ResponseEntity.ok("Pet data is valid.");
     }
 
     @GetMapping
     @JsonView(EntityVisibility.InternalPet.class)
-//    @JsonView(EntityVisibility.Public.class)
     List<PetDto> getAllPets() {
         return petService.getAllPets();
     }
 
     @GetMapping("/{petId}")
     @JsonView(EntityVisibility.InternalPet.class)
-//    @JsonView(EntityVisibility.Public.class)
     Optional<PetDto> getPetById(@PathVariable long petId) {
         return petService.getPetById(petId);
     }
