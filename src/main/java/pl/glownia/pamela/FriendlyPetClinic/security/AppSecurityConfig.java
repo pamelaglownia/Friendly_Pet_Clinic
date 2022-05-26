@@ -1,31 +1,30 @@
 package pl.glownia.pamela.FriendlyPetClinic.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import static pl.glownia.pamela.FriendlyPetClinic.model.ClinicUserRole.ADMIN;
-import static pl.glownia.pamela.FriendlyPetClinic.model.ClinicUserRole.USER;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import pl.glownia.pamela.FriendlyPetClinic.authentication.PetOwnerAuthProvider;
+import pl.glownia.pamela.FriendlyPetClinic.authentication.VetAuthProvider;
 
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private static final String OPENING_HOURS_URL = "/clinic/opening-hours";
-    private static final String PET_OWNERS_PAGE = "/clinic/pet-owners/**";
+    private PetOwnerAuthProvider petOwnerAuthProvider;
+    private VetAuthProvider vetAuthProvider;
 
     @Autowired
-    public AppSecurityConfig(PasswordEncoder passwordEncoder) {
+    public AppSecurityConfig(PasswordEncoder passwordEncoder, PetOwnerAuthProvider petOwnerAuthProvider, VetAuthProvider vetAuthProvider) {
         this.passwordEncoder = passwordEncoder;
+        this.petOwnerAuthProvider = petOwnerAuthProvider;
+        this.vetAuthProvider = vetAuthProvider;
     }
 
     @Override
@@ -34,36 +33,23 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(OPENING_HOURS_URL).permitAll()
-                .antMatchers(PET_OWNERS_PAGE).hasRole(USER.name())
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl(OPENING_HOURS_URL, true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) //when we disable csrf. Otherwise - POST method
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
     }
 
-    // example in memory database for testing
     @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails harry = User.builder()
-                .username("harry")
-                .password(passwordEncoder.encode("pass"))
-                .roles(USER.name())
-                .build();
-        UserDetails mary = User.builder()
-                .username("mary")
-                .password(passwordEncoder.encode("pass"))
-                .roles(ADMIN.name())
-                .build();
-        return new InMemoryUserDetailsManager(harry, mary);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(petOwnerAuthProvider);
+        auth.authenticationProvider(vetAuthProvider);
     }
 }
